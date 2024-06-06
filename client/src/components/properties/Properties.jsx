@@ -18,7 +18,7 @@ const Properties = () => {
   const arrQuery = query.split('&');
   const navigate = useNavigate();
   console.log(query);
-  
+
   // fetch all property
   useEffect(() => {
     const fetchAllProperties = async () => {
@@ -99,14 +99,18 @@ const Properties = () => {
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.options}>
-          <select value={state?.type} name="type" onChange={handleState}>
+          <select value={state?.type} name='type' onChange={handleState}>
             <option disabled>Select type</option>
             <option value='house'>House</option>
             <option value='apartment'>Apartment</option>
             <option value='townhouse'>Townhouse</option>
             <option value='duplex'>Duplex</option>
           </select>
-          <select value={state?.priceRange} name="priceRange" onChange={handleState}>
+          <select
+            value={state?.priceRange}
+            name='priceRange'
+            onChange={handleState}
+          >
             <option disabled>Select price range</option>
             <option value='0'>0-300,000</option>
             <option value='1'>300,000-500,000</option>
@@ -114,7 +118,7 @@ const Properties = () => {
             <option value='3'>700,000-1,000,000</option>
             <option value='3'>Over 1,000,000</option>
           </select>
-          <select value={state?.state} name="state" onChange={handleState}>
+          <select value={state?.state} name='state' onChange={handleState}>
             <option disabled>Select state</option>
             <option value='0'>NSW</option>
             <option value='1'>VIC</option>
@@ -143,7 +147,7 @@ const Properties = () => {
                     to={`/propertyDetail/${property._id}`}
                   >
                     <img
-                      src={`https://real-estate-website-mern-m3ux.onrender.com/${property?.img}`}
+                      src={`https://real-estate-website-mern-m3ux.onrender.com/images/${property?.img}`}
                       alt=''
                     />
                   </Link>
@@ -153,7 +157,7 @@ const Properties = () => {
                         {property?.address}
                       </span>
                       <img
-                        src={`https://real-estate-website-mern-m3ux.onrender.com/${property?.currentOwner.profileImg}`}
+                        src={`https://real-estate-website-mern-m3ux.onrender.com/images/${property?.currentOwner.profileImg}`}
                         className={classes.owner}
                         alt='seller profile picture'
                       />

@@ -42,7 +42,7 @@ const FeaturedProperties = () => {
                 className={classes.imgContainer}
               >
                 <img
-                  src={`https://real-estate-website-mern-m3ux.onrender.com/${property?.img}`}
+                  src={`https://real-estate-website-mern-m3ux.onrender.com/images/${property?.img}`}
                   alt=''
                 />
               </Link>
@@ -50,7 +50,7 @@ const FeaturedProperties = () => {
                 <div className={classes.priceAndOwner}>
                   <span className={classes.address}>{property?.address}</span>
                   <img
-                    src={`https://real-estate-website-mern-m3ux.onrender.com/${property.currentOwner?.profileImg}`}
+                    src={`https://real-estate-website-mern-m3ux.onrender.com/images/${property.currentOwner?.profileImg}`}
                     className={classes.owner}
                     alt='seller profile picture'
                   />

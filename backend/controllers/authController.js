@@ -1,53 +1,77 @@
+//
+
 const authController = require('express').Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken'); //jwt
+const jwt = require('jsonwebtoken');
 
-// register
+// Register
 authController.post('/register', async (req, res) => {
   try {
-    const isExisting = await User.findOne({ email: req.body.email });
-    if (isExisting) {
-      throw new Error('Email already registered');
+    console.log('Request body:', req.body); // Log request body
+
+    const { email, password, username } = req.body;
+
+    // Validate request data
+    if (!email || !password || !username) {
+      return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const isExisting = await User.findOne({ email });
+    if (isExisting) {
+      return res.status(400).json({ message: 'Email already registered' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       ...req.body,
       password: hashedPassword,
     });
-    // Removing the password before send the user data in the response
-    const { password, ...others } = newUser._doc;
+
+    // Remove password before sending the response
+    const { password: _, ...others } = newUser._doc;
+
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: '4h',
     });
 
-    return res.status(201).json({ others, token });
+    return res.status(201).json({ user: others, token });
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error('Registration Error:', error); // Log the full error
+    return res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
-// login
+// Login
 authController.post('/login', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      throw new Error('Wrong credentials!');
+    const { email, password } = req.body;
+
+    // Validate request data
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    const comparePass = await bcrypt.compare(req.body.password, user.password);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'Wrong credentials!' });
+    }
+
+    const comparePass = await bcrypt.compare(password, user.password);
     if (!comparePass) {
-      throw new Error('Wrong credentials');
+      return res.status(400).json({ message: 'Wrong credentials' });
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '4h'
+      expiresIn: '4h',
     });
-    const { password, ...others } = user._doc;
-    return res.status(200).json({ others, token });
+
+    const { password: _, ...others } = user._doc;
+    return res.status(200).json({ user: others, token });
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error('Login Error:', error); // Log the full error
+    return res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 module.exports = authController;

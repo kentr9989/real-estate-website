@@ -58,7 +58,7 @@ const PropertyDetails = () => {
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.left}>
-          <img src={`https://real-estate-website-mern-m3ux.onrender.com/${propertyDetail?.img}`} />
+          <img src={`https://real-estate-website-mern-m3ux.onrender.com/images/${propertyDetail?.img}`} />
           <div className={classes.moreDetails}>
             <span>
               {propertyDetail?.price} AUD
@@ -94,7 +94,7 @@ const PropertyDetails = () => {
               >
                 Owner
                 <img
-                  src={`https://real-estate-website-mern-m3ux.onrender.com/${propertyDetail?.currentOwner.profileImg}`}
+                  src={`https://real-estate-website-mern-m3ux.onrender.com/images/${propertyDetail?.currentOwner.profileImg}`}
                   className={classes.owner}
                 />
               </span>
