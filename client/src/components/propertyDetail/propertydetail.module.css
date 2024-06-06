@@ -1,0 +1,215 @@
+.container {
+    height: calc(100vh-60px);
+    width: 100%;
+    margin-top: 5rem;
+}
+
+.wrapper {
+    max-width: 1180px;
+    height: 100%;
+    margin : 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.left {
+    flex:1;
+    height: 70%;
+    width: 100%;
+}
+
+.left > img {
+    height: 65%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.right {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    font-size:28px;
+    color: #222;
+}
+
+.descAndOwner .owner {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 0 0.5rem;
+}
+
+.details > .descAndOwner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.descAndOwner > .desc{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.descAndOwner > .desc{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.descAndOwner > .desc > span{
+    font-weight: normal;
+    font-size: 17px;
+}
+
+.moreDetails {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.moreDetails > span {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-right: 1px solid #0707b5;
+    color: #2c2cdc;
+    padding-right: 1.2rem;
+}
+
+.moreDetails > span:last-child {
+    border:none;
+}
+
+.typeAndAddress {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* justify-content: space-between;
+    align-items: center; */
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+}
+.typeAndAddress > div {
+    margin-bottom: 1.5rem;
+}
+.typeAndAddress > div > span {
+    background-color: #2500ac;
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 12px;
+    margin-left: 0.25rem;
+}
+
+.desc { 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 450px;
+    font-size: 18px;
+    margin: 2rem 0;
+}
+
+.desc > span {
+    color :#444;
+    font-size: 16px;
+}
+
+.contactOwner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    margin: 0 auto;
+    padding: 0.4rem 1rem;
+    white-space: nowrap;
+    outline: none;
+    border: 1px solid transparent;
+    background-color: #2500ac;
+    color : #fff;
+    cursor: pointer;
+    /* text-align: center;
+    border: 1px solid transparent;
+    outline: none;
+    margin-top: 1.5rem */
+}
+
+.contactOwner:hover {
+    border-color: #2500ac;
+    color : #2500ac;
+    background-color: #fff;
+}
+
+.contactForm {
+    
+    /* position: absolute;
+    bottom: 0;
+    left: 0; */
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+}
+
+.contactFormWrapper {
+    position:relative;
+    background-color: #fff;
+    height: 65vh;
+    width: 25vw;
+    border-radius: 20px;
+}
+
+.contactFormWrapper > h2 {
+    text-align: center;
+    margin: 2.5rem 0;
+    margin-bottom: 3.5rem;
+}
+
+.removeIcon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 992px) {
+    .wrapper { 
+        width: 90%;
+    }
+    .left {
+        align-items: center;
+        margin: 10px auto;
+        width: 80%;
+    }
+    
+    .contactFormWrapper {
+        height: 75vh;
+        width: 35vw;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+}

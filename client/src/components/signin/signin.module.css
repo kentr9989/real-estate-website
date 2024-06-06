@@ -1,0 +1,88 @@
+.container {
+    position: absolute;
+    top: 0;
+    left : 0;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../../assets/estate3.jpg");
+    background-size: cover;
+    background-blend-mode: darken;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    height: 67.5vh;
+    width: 27.5vw;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #fff;
+}
+
+
+.wrapper > h2 {
+    color: #171097;
+    text-align: center;
+    margin: 0.5rem 0;
+    font-size: 25px;
+}
+
+form > input {
+    width: 80%;
+    border: none;
+    border-bottom:  0.8px solid #333;
+    font-size: 15px;
+}
+
+form > label {
+    align-self: center;
+    width: 50%;
+    cursor: pointer;
+    transition : 150ms all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+form > label:hover {
+    color: #777;
+}
+
+form > button {
+    outline: none;
+    background-color: blue;
+    color: #fff;
+    border-radius: 15px;
+    padding: 0.5rem 1.25rem;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+form > button:hover {
+    background-color: white;
+    color: blue;
+}
+
+form > p {
+    text-align: center;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+form > p > a {
+    font-size: 16px;
+    margin-top: 0.25rem;
+    color: blue;
+}
+
+
+
