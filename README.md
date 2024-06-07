@@ -1,4 +1,4 @@
-Australia real estate
+Australia real estate full stack
 
 I develop a real estate project (frontend + backend) that is similar to realestate.com but everyone can use it.
 
