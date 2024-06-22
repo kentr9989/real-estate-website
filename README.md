@@ -8,6 +8,7 @@ To start the backend : npx nodemon start
   + MongoDB
   + Bcrypt
   + Multer
+  + Express JS
 
 To start the front end : npm run start
 + Frontend technology : 
