@@ -1,9 +1,23 @@
-const mongoose = require('mongoose');
+import { Schema, model, Document, Types } from 'mongoose';
 
-const PropertySchema = new mongoose.Schema(
+interface IProperty extends Document {
+  currentOwner: Types.ObjectId;
+  address: string;
+  state?: 'NSW' | 'VIC' | 'WA' | 'SA' | 'TAS';
+  title: string;
+  type?: 'apartment' | 'house' | 'duplex' | 'townhouse';
+  desc: string;
+  img: string;
+  price: number;
+  sqmeters: number;
+  beds: number;
+  featured?: boolean;
+}
+
+const PropertySchema = new Schema<IProperty>(
   {
     currentOwner: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId as any, // Casting to any to avoid type errors
       ref: 'User',
       required: true,
     },
@@ -18,7 +32,7 @@ const PropertySchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      min: 8,
+      minlength: 8,
     },
     type: {
       type: String,
@@ -27,7 +41,7 @@ const PropertySchema = new mongoose.Schema(
     desc: {
       type: String,
       required: true,
-      min: 20,
+      minlength: 20,
     },
     img: {
       type: String,
@@ -54,4 +68,5 @@ const PropertySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Property', PropertySchema);
+const Property = model<IProperty>('Property', PropertySchema);
+export default Property;
