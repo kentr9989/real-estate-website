@@ -1,6 +1,18 @@
-* {
-  box-sizing: border-box;
+/* Ensure the body and html elements cover the full width and height */
+html, body {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
+
+/* Ensure all elements use border-box sizing */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Remove default margin from main container */
+
+/* If using a specific container class, ensure it covers full width */
+
