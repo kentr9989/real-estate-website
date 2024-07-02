@@ -1,23 +1,58 @@
-import React from 'react';
-import classes from './navbar.module.css';
-import { request } from '../../util/fetchApi';
-import { Link, useNavigate } from 'react-router-dom';
-import { BsHouseDoor } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/authSlice';
+import React, { useState } from 'react';
+import {
+  HoverCard,
+  Group,
+  Button,
+  UnstyledButton,
+  Text,
+  SimpleGrid,
+  ThemeIcon,
+  Anchor,
+  Divider,
+  Center,
+  Box,
+  Burger,
+  Drawer,
+  Collapse,
+  ScrollArea,
+  rem,
+  useMantineTheme,
+  Modal,
+  TextInput,
+  NumberInput,
+  Stack,
+  FileInput,
+} from '@mantine/core';
 import { AiOutlineFileImage, AiOutlineClose } from 'react-icons/ai';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { useDisclosure } from '@mantine/hooks';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../../redux/authSlice';
+import { request } from '../../util/fetchApi';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  IconNotification,
+  IconCode,
+  IconBook,
+  IconChartPie3,
+  IconFingerprint,
+  IconCoin,
+  IconChevronDown,
+} from '@tabler/icons-react';
+import { BsHouseDoor } from 'react-icons/bs';
+import classes from './Navbar.module.css';
 
-const Navbar = () => {
-  const [state, setState] = useState({});
-  const [photo, setPhoto] = useState('');
-  const [showForm, setShowForm] = useState(false);
-  const [showMobileNav, setShowMobileNav] = useState(false);
+export function Navbar() {
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
+  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const { user, token } = useSelector((state) => state.auth);
+  const theme = useMantineTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [showForm, setShowForm] = useState(false);
+  const [state, setState] = useState({});
+  const [photo, setPhoto] = useState('');
 
   const handleLogout = () => {
     dispatch(logout());
@@ -25,9 +60,7 @@ const Navbar = () => {
   };
 
   const handleState = (event) => {
-    setState((prev) => {
-      return { ...prev, [event.target.name]: event.target.value };
-    });
+    setState((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
   const handleCloseForm = () => {
@@ -62,7 +95,6 @@ const Navbar = () => {
         img: filename,
       });
       setShowForm(false);
-      // console.log(data);
       handleCloseForm();
     } catch (error) {
       console.error(error);
@@ -70,281 +102,371 @@ const Navbar = () => {
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.wrapper}>
-        <Link to='/' className={classes.left}>
-          Australia Real Estate Website <BsHouseDoor />
-        </Link>
-        <ul className={classes.center}>
-          <Link to='/' className={classes.listItem}>
-            Home
-          </Link>
-          <Link to='/about' className={classes.listItem}>
-            About
-          </Link>
-          <Link to='/featured' className={classes.listItem}>
-            Featured
-          </Link>
-          <Link to='/about' className={classes.listItem}>
-            Contact
-          </Link>
-        </ul>
-        <div className={classes.right}>
-          {!user ? (
-            <>
-              {' '}
-              <Link to='/signup'>Sign up</Link>
-              <Link to='/signin'>Sign in</Link>
-            </>
-          ) : (
-            <>
-              {' '}
-              <span> Hello {user.username} </span>
-              <span onClick={handleLogout} className={classes.logoutBtn}>
-                Logout
-              </span>
-              <Link onClick={() => setShowForm(true)} className={classes.list}>
-                List your property{' '}
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
-      {showForm && (
-        <div onClick={handleCloseForm} className={classes.listPropertyForm}>
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className={classes.listPropertyWrapper}
+    <Box pb={10}>
+      <header className={classes.header}>
+        <Group justify='space-between' h='100%'>
+          <Link
+            to='/'
+            className={classes.left}
+            style={{ color: 'blueviolet', textDecoration: 'none' }}
           >
-            <h2> List Property</h2>
-            <form onSubmit={handleListProperty}>
-              <input
-                type='text'
-                placeholder='Title'
-                name='title'
-                onChange={handleState}
-              />
-              <input
-                type='text'
-                placeholder='Address'
-                name='address'
-                onChange={handleState}
-              />
-              <input
-                type='text'
-                placeholder='State'
-                name='state'
-                onChange={handleState}
-              />
-              <input
-                type='text'
-                placeholder='Type'
-                name='type'
-                onChange={handleState}
-              />
-              <input
-                type='text'
-                placeholder='Description'
-                name='desc'
-                onChange={handleState}
-              />
-              <input
-                type='number'
-                placeholder='Price'
-                name='price'
-                onChange={handleState}
-              />
-              <input
-                type='number'
-                placeholder='Area (square meteres)'
-                name='sqmeters'
-                onChange={handleState}
-              />
-              <input
-                type='number'
-                placeholder='Number of beds'
-                step={1}
-                min={1}
-                name='beds'
-                onChange={handleState}
-              />
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  width: '50%',
-                }}
-              >
-                <label htmlFor='photo'>
-                  Upload property picture <AiOutlineFileImage />
-                </label>
-                <input
-                  type='file'
-                  id='photo'
-                  style={{ display: 'none' }}
-                  onChange={(e) => setPhoto(e.target.files[0])}
-                />
-                {photo && <p>{photo.name}</p>}
-              </div>
-              <button> List property</button>
-            </form>
-            <AiOutlineClose
-              onClick={handleCloseForm}
-              className={classes.removeIcon}
-            />
-          </div>
-        </div>
-      )}
-      {
-        <div className={classes.mobileNav}>
-          {showMobileNav && (
-            <div className={classes.navigation}>
-              <Link to='/' className={classes.left}>
-                Australia Real Estate Website <BsHouseDoor />
-              </Link>
-              <AiOutlineClose
-                onClick={() => setShowMobileNav(false)}
-                className={classes.mobileCloseIcon}
-              />
-              <ul className={classes.center}>
-                <Link to='/' className={classes.listItem}>
-                  Home
-                </Link>
-                <Link to='/about' className={classes.listItem}>
-                  About
-                </Link>
-                <Link to='/featured' className={classes.listItem}>
-                  Featured
-                </Link>
-                <Link to='/about' className={classes.listItem}>
-                  Contact
-                </Link>
-              </ul>
-              <div className={classes.right}>
-                {!user ? (
-                  <>
-                    {' '}
-                    <Link to='/signup'>Sign up</Link>
-                    <Link to='/signin'>Sign in</Link>
-                  </>
-                ) : (
-                  <>
-                    {' '}
-                    <span> Hello {user.username} </span>
-                    <span onClick={handleLogout} className={classes.logoutBtn}>
-                      Logout
-                    </span>
-                    <Link
-                      onClick={() => setShowForm(true)}
-                      className={classes.list}
-                    >
-                      List your property{' '}
-                    </Link>
-                  </>
-                )}
-              </div>
-              {showForm && showMobileNav && (
-                <div
-                  onClick={handleCloseForm}
-                  className={classes.listPropertyForm}
+            OZ Real Estate <BsHouseDoor size={25} />
+          </Link>
+
+          <Group
+            h='100%'
+            gap={30}
+            visibleFrom='sm'
+            justify='space-between'
+            mt={10}
+          >
+            <Link to='/' className={classes.listItem}>
+              Home
+            </Link>
+            <Link to='/about' className={classes.listItem}>
+              About
+            </Link>
+            <Link to='/featured' className={classes.listItem}>
+              Featured
+            </Link>
+            <Link to='/about' className={classes.listItem}>
+              Contact
+            </Link>
+          </Group>
+
+          <Group
+            visibleFrom='md'
+            className={classes.right}
+            gap='xs'
+            grow
+            mr={10}
+            mt={10}
+          >
+            {!user ? (
+              <>
+                <Link to='/signup'>Sign up</Link>
+                <Link to='/signin'>Sign in</Link>
+              </>
+            ) : (
+              <>
+                <span className={classes.helloMsg}>👋 {user.username}</span>
+                <Button
+                  variant='subtle'
+                  onClick={handleLogout}
+                  className={classes.logoutBtn}
                 >
-                  <div
-                    onClick={(e) => e.stopPropagation()}
-                    className={classes.listPropertyWrapper}
-                  >
-                    <h2> List Property</h2>
-                    <form onSubmit={handleListProperty}>
-                      <input
-                        type='text'
-                        placeholder='Title'
-                        name='title'
-                        onChange={handleState}
-                      />
-                      <input
-                        type='text'
-                        placeholder='Address'
-                        name='address'
-                        onChange={handleState}
-                      />
-                      <input
-                        type='text'
-                        placeholder='State'
-                        name='state'
-                        onChange={handleState}
-                      />
-                      <input
-                        type='text'
-                        placeholder='Type'
-                        name='type'
-                        onChange={handleState}
-                      />
-                      <input
-                        type='text'
-                        placeholder='Description'
-                        name='desc'
-                        onChange={handleState}
-                      />
-                      <input
-                        type='number'
-                        placeholder='Price'
-                        name='price'
-                        onChange={handleState}
-                      />
-                      <input
-                        type='number'
-                        placeholder='Area (square meteres)'
-                        name='sqmeters'
-                        onChange={handleState}
-                      />
-                      <input
-                        type='number'
-                        placeholder='Number of beds'
-                        step={1}
-                        min={1}
-                        name='beds'
-                        onChange={handleState}
-                      />
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '12px',
-                          width: '50%',
-                        }}
-                      >
-                        <label htmlFor='photo'>
-                          Upload property picture <AiOutlineFileImage />
-                        </label>
-                        <input
-                          type='file'
-                          id='photo'
-                          style={{ display: 'none' }}
-                          onChange={(e) => setPhoto(e.target.files[0])}
-                        />
-                        {photo && <p>{photo.name}</p>}
-                      </div>
-                      <button> List property</button>
-                    </form>
-                    <AiOutlineClose
-                      onClick={handleCloseForm}
-                      className={classes.removeIcon}
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-          {!showMobileNav && (
-            <GiHamburgerMenu
-              className={classes.hamburgerIcon}
-              onClick={() => setShowMobileNav((prev) => !prev)}
-            />
-          )}
-        </div>
-      }
-    </div>
+                  Logout
+                </Button>
+                <Button
+                  variant='outline'
+                  onClick={() => setShowForm(true)}
+                  className={classes.list}
+                >
+                  List your property
+                </Button>
+              </>
+            )}
+          </Group>
+          <Burger
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            hiddenFrom='sm'
+          />
+        </Group>
+      </header>
+
+      <Drawer
+        opened={drawerOpened}
+        onClose={closeDrawer}
+        size='100%'
+        padding='md'
+        hiddenFrom='sm'
+        zIndex={1000000}
+      >
+        <ScrollArea h={`calc(100vh - ${rem(80)})`} mx='-md'>
+          <Link
+            to='/'
+            className={classes.left}
+            style={{
+              color: 'blueviolet',
+              textDecoration: 'none',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            OZ Real Estate <BsHouseDoor size={25} />
+          </Link>
+
+          <Divider my='sm' />
+          <Stack
+            h={300}
+            bg='var(--mantine-color-body)'
+            align='center'
+            justify='center'
+            gap='lg'
+          >
+            <Link to='/' className={classes.listItem}>
+              Home
+            </Link>
+            <Link to='/about' className={classes.listItem}>
+              About
+            </Link>
+            <Link to='/featured' className={classes.listItem}>
+              Featured
+            </Link>
+            <Link to='/about' className={classes.listItem}>
+              Contact
+            </Link>
+          </Stack>
+
+          <Divider my='sm' />
+
+          <Group justify='center' grow pb='xl' px='md'>
+            <Button
+              variant='outline'
+              onClick={() => setShowForm(true)}
+              className={classes.list}
+            >
+              List your property
+            </Button>
+          </Group>
+        </ScrollArea>
+      </Drawer>
+      <Modal
+        opened={showForm}
+        onClose={handleCloseForm}
+        title='List Property'
+        scrollAreaComponent={ScrollArea.Autosize}
+        className={classes.modalContainer}
+      >
+        <form onSubmit={handleListProperty}>
+          <TextInput
+            label='Title'
+            placeholder='Title'
+            name='title'
+            onChange={handleState}
+            className={classes.input}
+          />
+          <TextInput
+            label='Address'
+            placeholder='Address'
+            name='address'
+            onChange={handleState}
+            className={classes.input}
+          />
+          <TextInput
+            label='State'
+            placeholder='State'
+            name='state'
+            onChange={handleState}
+            className={classes.input}
+          />
+          <TextInput
+            label='Type'
+            placeholder='Type'
+            name='type'
+            onChange={handleState}
+            className={classes.input}
+          />
+          <TextInput
+            label='Description'
+            placeholder='Description'
+            name='desc'
+            onChange={handleState}
+            className={classes.input}
+          />
+          <NumberInput
+            label='Price'
+            placeholder='Price'
+            name='price'
+            onChange={(value) =>
+              setState((prev) => ({ ...prev, price: value }))
+            }
+            className={classes.input}
+          />
+          <NumberInput
+            label='Area (square meters)'
+            placeholder='Area (square meters)'
+            name='sqmeters'
+            onChange={(value) =>
+              setState((prev) => ({ ...prev, sqmeters: value }))
+            }
+            className={classes.input}
+          />
+          <NumberInput
+            label='Number of beds'
+            placeholder='Number of beds'
+            name='beds'
+            step={1}
+            min={1}
+            onChange={(value) => setState((prev) => ({ ...prev, beds: value }))}
+            className={classes.input}
+          />
+          <FileInput
+            label='Upload property picture'
+            placeholder='Choose file'
+            icon={<AiOutlineFileImage />}
+            onChange={setPhoto}
+            className={classes.fileInput}
+          />
+          {photo && <Text>{photo.name}</Text>}
+          <Button
+            type='submit'
+            size='xs'
+            className={classes.submitButton}
+            fullWidth
+            mt={10}
+          >
+            List property
+          </Button>
+        </form>
+      </Modal>
+    </Box>
   );
-};
+}
 
 export default Navbar;
+
+// import React, { useState } from 'react';
+// import { Link, useNavigate } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { request } from '../../util/fetchApi';
+// import { logout } from '../../redux/authSlice';
+// import {
+//   Container,
+//   Group,
+//   Paper,
+//   Text,
+//   Button,
+//   TextInput,
+//   NumberInput,
+//   FileInput,
+//   Title,
+//   Modal,
+//   NavLink,
+//   ScrollArea,
+// } from '@mantine/core';
+// import { BsHouseDoor } from 'react-icons/bs';
+// import {
+//   IconHome,
+//   IconInfoCircle,
+//   IconStar,
+//   IconPhone,
+//   IconBuildingCommunity,
+//   IconUpload,
+// } from '@tabler/icons-react';
+// import { AiOutlineFileImage, AiOutlineClose } from 'react-icons/ai';
+
+// import { GiHamburgerMenu } from 'react-icons/gi';
+// import classes from './navbar.module.css';
+
+// const Navbar = () => {
+//   const [state, setState] = useState({});
+//   const [photo, setPhoto] = useState('');
+//   const [showForm, setShowForm] = useState(false);
+//   const { user, token } = useSelector((state) => state.auth);
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
+
+//   const handleLogout = () => {
+//     dispatch(logout());
+//     navigate('/signin');
+//   };
+
+//   const handleState = (event) => {
+//     setState((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+//   };
+
+//   const handleCloseForm = () => {
+//     setShowForm(false);
+//     setPhoto(null);
+//     setState({});
+//   };
+
+//   const handleListProperty = async (e) => {
+//     e.preventDefault();
+
+//     let filename = null;
+//     if (photo) {
+//       const formData = new FormData();
+//       filename = crypto.randomUUID() + photo.name;
+//       formData.append('filename', filename);
+//       formData.append('image', photo);
+
+//       await request(`/upload/image`, 'POST', {}, formData, true);
+//     } else {
+//       return;
+//     }
+
+//     try {
+//       const options = {
+//         Authorization: `Bearer ${token}`,
+//         'Content-Type': 'application/json',
+//       };
+
+//       const data = await request(`/property`, 'POST', options, {
+//         ...state,
+//         img: filename,
+//       });
+//       setShowForm(false);
+//       handleCloseForm();
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   return (
+//     <div className={classes.container}>
+//       <Container size='ld' className={classes.wrapper}>
+//         <Group className={classes.nav}>
+//           <Link to='/' className={classes.left}>
+//             Australia Real Estate Website <BsHouseDoor />
+//           </Link>
+//           <Group className={classes.center}>
+//             <Link to='/' className={classes.listItem}>
+//               <IconHome className={classes.icon} size={20} /> Home
+//             </Link>
+//             <Link to='/about' className={classes.listItem}>
+//               <IconInfoCircle className={classes.icon} size={20} /> About
+//             </Link>
+//             <Link to='/featured' className={classes.listItem}>
+//               <IconStar className={classes.icon} size={20} /> Featured
+//             </Link>
+//             <Link to='/contact' className={classes.listItem}>
+//               <IconPhone className={classes.icon} size={20} /> Contact
+//             </Link>
+//           </Group>
+//           <Group className={classes.right} gap='sm'>
+//             {!user ? (
+//               <>
+//                 <Link to='/signup'>Sign up</Link>
+//                 <Link to='/signin'>Sign in</Link>
+//               </>
+//             ) : (
+//               <>
+//                 <span className={classes.helloMsg}>👋 {user.username}</span>
+//                 <Button
+//                   variant='subtle'
+//                   onClick={handleLogout}
+//                   className={classes.logoutBtn}
+//                 >
+//                   Logout
+//                 </Button>
+//                 <Button
+//                   variant='outline'
+//                   onClick={() => setShowForm(true)}
+//                   className={classes.list}
+//                 >
+//                   List your property
+//                 </Button>
+//               </>
+//             )}
+//           </Group>
+//         </Group>
+//       </Container>
+
+//     </div>
+//   );
+// };
+
+// export default Navbar;
