@@ -1,50 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './hero.module.css';
-import { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { Container, Select, Group, Title, Text, ActionIcon } from '@mantine/core';
 
 const Hero = () => {
   const [type, setType] = useState('house');
   const [state, setState] = useState('0');
   const [priceRange, setPriceRange] = useState('0');
   const navigate = useNavigate();
-  
+
   const handleSearch = () => {
-    navigate(`/properties?type=${type}&state=${state}&priceRange=${priceRange}`)
-  }
+    navigate(`/properties?type=${type}&state=${state}&priceRange=${priceRange}`);
+  };
+
   return (
     <div className={classes.container}>
-      <div className={classes.wrapper}>
-        <h2>Properties to call home in Australia</h2>
-        <h5>Search for the best real estate to fit your need</h5>
-        <div className={classes.options}>
-          <select onChange={(e) => setType(e.target.value)}>
-            <option disabled>Select type</option>
-            <option value='house'>House</option>
-            <option value='apartment'>Apartment</option>
-            <option value='townhouse'>Townhouse</option>
-            <option value='duplex'>Duplex</option>
-          </select>
-          <select onChange={(e) => setPriceRange(e.target.value)}>
-            <option disabled>Select price range</option>
-            <option value='0'>0-300,000</option>
-            <option value='1'>300,000-500,000</option>
-            <option value='2'>500,000-700,000</option>
-            <option value='3'>700,000-1,000,000</option>
-            <option value='3'>Over 1,000,000</option>
-          </select>
-          <select onChange={(e) => setState(e.target.value)}>
-            <option disabled>Select state</option>
-            <option value='0'>NSW</option>
-            <option value='1'>VIC</option>
-            <option value='2'>WA</option>
-            <option value='3'>SA</option>
-            <option value='4'>TAS</option>
-          </select>
-          <AiOutlineSearch onClick={handleSearch} className={classes.searchIcon} />
-        </div>
-      </div>
+      <Container className={classes.wrapper}>
+        <Title order={1}>Properties to call home in Australia</Title>
+        <Group className={classes.options}>
+          <Select
+            placeholder="Select type"
+            data={[
+              { value: 'house', label: 'House' },
+              { value: 'apartment', label: 'Apartment' },
+              { value: 'townhouse', label: 'Townhouse' },
+              { value: 'duplex', label: 'Duplex' },
+            ]}
+            onChange={setType}
+            className={classes.select}
+          />
+          <Select
+            placeholder="Select price range"
+            data={[
+              { value: '0', label: '0-300,000' },
+              { value: '1', label: '300,000-500,000' },
+              { value: '2', label: '500,000-700,000' },
+              { value: '3', label: '700,000-1,000,000' },
+              { value: '4', label: 'Over 1,000,000' },
+            ]}
+            onChange={setPriceRange}
+            className={classes.select}
+          />
+          <Select
+            placeholder="Select state"
+            data={[
+              { value: '0', label: 'NSW' },
+              { value: '1', label: 'VIC' },
+              { value: '2', label: 'WA' },
+              { value: '3', label: 'SA' },
+              { value: '4', label: 'TAS' },
+            ]}
+            onChange={setState}
+            className={classes.select}
+          />
+          <ActionIcon variant="filled" className={classes.searchIcon} onClick={handleSearch}>
+            <AiOutlineSearch />
+          </ActionIcon>
+        </Group>
+      </Container>
     </div>
   );
 };
