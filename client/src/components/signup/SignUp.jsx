@@ -8,6 +8,7 @@ import {
   Paper,
   Title,
   Text,
+  Alert,
   Anchor,
 } from '@mantine/core';
 import { AiOutlineFileImage } from 'react-icons/ai';
@@ -22,6 +23,7 @@ const SignUp = () => {
   const [photo, setPhoto] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [error, setError] = useState('');
 
   const handleState = (event) => {
     setState((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -53,22 +55,35 @@ const SignUp = () => {
       dispatch(register(data));
       navigate('/');
     } catch (error) {
+      setError('Invalid email or password. Please try again.');
       console.error(error);
     }
   };
 
   return (
     <div className={classes.container}>
+      {error && (
+        <Alert
+          title='Incorrect credential'
+          color='red'
+          className={classes.alert}
+          withCloseButton
+          onClose={() => setError('')}
+        >
+          {error}
+        </Alert>
+      )}
       <Container size={420} my={40} className={classes.wrapper}>
         <Title align='center' className={classes.title}>
           Sign up
         </Title>
-        <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
+        <Paper withBorder shadow='md' p={35} mt={20} radius='md'>
           <form onSubmit={handleSubmit}>
             <TextInput
               label='Username'
               placeholder='Username'
               name='username'
+              mb={5}
               onChange={handleState}
               required
               className={classes.input}
@@ -77,6 +92,7 @@ const SignUp = () => {
               label='Email'
               placeholder='Email'
               name='email'
+              mb={5}
               onChange={handleState}
               required
               className={classes.input}
@@ -84,6 +100,7 @@ const SignUp = () => {
             <FileInput
               label='Upload photo'
               placeholder='Choose file'
+              mb={5}
               icon={<AiOutlineFileImage />}
               onChange={setPhoto}
               className={classes.fileInput}
@@ -92,6 +109,7 @@ const SignUp = () => {
               label='Password'
               placeholder='Password'
               name='password'
+              mb={5}
               onChange={handleState}
               required
               className={classes.input}
@@ -107,7 +125,8 @@ const SignUp = () => {
             </Button>
           </form>
           <Text align='center' mt='md'>
-            Already have an account?{' '}
+            Already have an account?
+            <br />
             <Anchor component={Link} to='/signin'>
               Sign in
             </Anchor>
