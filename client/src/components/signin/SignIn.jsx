@@ -12,12 +12,14 @@ import {
   Paper,
   Title,
   Anchor,
+  Alert,
 } from '@mantine/core';
 import classes from './signin.module.css';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,12 +36,24 @@ const SignIn = () => {
       dispatch(login(data));
       navigate('/');
     } catch (error) {
+      setError('Invalid email or password. Please try again.');
       console.error(error);
     }
   };
 
   return (
     <div className={classes.container}>
+      {error && (
+        <Alert
+          title='Incorrect credential'
+          color='red'
+          className={classes.alert}
+          withCloseButton
+          onClose={() => setError('')}
+        >
+          {error}
+        </Alert>
+      )}
       <Container size={420} my={40} className={classes.wrapper}>
         <Title order={1} textWrap='wrap' ta='center' mb={20}>
           Sign in
@@ -86,7 +100,6 @@ const SignIn = () => {
               size='md'
               radius={5}
               ta='center'
-              // ml={60}
               variant='filled'
               className={classes.button}
             >
