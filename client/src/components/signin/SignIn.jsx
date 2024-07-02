@@ -1,10 +1,19 @@
-import React from 'react';
-import classes from './signin.module.css';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 import { request } from '../../util/fetchApi';
-import { login } from '../../redux/authSlice'
+import { login } from '../../redux/authSlice';
+import {
+  Container,
+  TextInput,
+  PasswordInput,
+  Button,
+  Text,
+  Paper,
+  Title,
+  Anchor,
+} from '@mantine/core';
+import classes from './signin.module.css';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -23,32 +32,70 @@ const SignIn = () => {
         { email, password }
       );
       dispatch(login(data));
-      navigate('/')
+      navigate('/');
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <div className={classes.container}>
-      <div className={classes.wrapper}>
-        <h2>Sign in</h2>
-        <form onSubmit={handleLogin}>
-          <input
-            type='email'
-            placeholder='Email'
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type='password'
-            placeholder='Password'
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button type='submit'> Sign in</button>
-          <p>
-            Don't have an account yet? <Link to='/signup'>Sign up</Link>
-          </p>
-        </form>
-      </div>
+      <Container>
+        <Paper
+          shadow='xl'
+          withBorder
+          p={30}
+          mt={30}
+          w={300}
+          h={500}
+          radius='md'
+          className={classes.wrapper}
+        >
+          <Title order={1} textWrap='wrap' ta='center' mb={20}>
+            Sign in
+          </Title>
+          <form onSubmit={handleLogin}>
+            <TextInput
+              label='Email'
+              placeholder='Email'
+              w={220}
+              radius='sm'
+              size='md'
+              required
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
+              className={classes.input}
+            />
+            <PasswordInput
+              label='Password'
+              placeholder='Password'
+              w={220}
+              radius='sm'
+              size='md'
+              required
+              value={password}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+              className={classes.input}
+            />
+            <Button
+              // fullWidth
+              type='submit'
+              size='md'
+              radius={15}
+              variant='filled'
+              className={classes.button}
+            >
+              Sign in
+            </Button>
+          </form>
+          <Text align='center' mt='md'>
+            Don't have an account yet? <br />
+            <Anchor component={Link} to='/signup'>
+              Sign up
+            </Anchor>
+          </Text>
+        </Paper>
+      </Container>
     </div>
   );
 };

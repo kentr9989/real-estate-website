@@ -12,32 +12,16 @@
     align-items: center;
 }
 
-.wrapper {
-    height: 67.5vh;
-    width: 27.5vw;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    background-color: #fff;
-}
 
 
-.wrapper > h2 {
-    color: #171097;
-    text-align: center;
-    margin: 0.5rem 0;
-    font-size: 25px;
-}
-
-form > input {
+/* form > input {
     width: 80%;
     border: none;
     border-bottom:  0.8px solid #333;
     font-size: 15px;
-}
+}  */
 
-form > label {
+ /* form > label {
     align-self: center;
     width: 50%;
     cursor: pointer;
@@ -46,13 +30,13 @@ form > label {
     justify-content: center;
     align-items: center;
     gap: 0.3rem;
-}
-
+} */
+/* 
 form > label:hover {
     color: #777;
-}
+} */
 
-form > button {
+/* form > button {
     outline: none;
     background-color: blue;
     color: #fff;
@@ -60,9 +44,9 @@ form > button {
     padding: 0.5rem 1.25rem;
     font-size: 20px;
     cursor: pointer;
-}
+} */
 
-form > button:hover {
+/* form > button:hover {
     background-color: white;
     color: blue;
 }
@@ -82,7 +66,7 @@ form > p > a {
     font-size: 16px;
     margin-top: 0.25rem;
     color: blue;
-}
+} */
 
 
 

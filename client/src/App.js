@@ -13,66 +13,64 @@ import Footer from './components/footer/Footer';
 
 function App() {
   return (
-    <div>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <>
-              <Navbar />
-              <Hero />
-              <PopularProperties />
-              <FeaturedProperties />
-              <Newsletter />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path='/about'
-          element={
-            <>
-              <Navbar />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path='/featured'
-          element={
-            <>
-              <Navbar />
-              <FeaturedProperties />
-            </>
-          }
-        />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='/signin' element={<SignIn />} />
+    <Routes>
+      <Route
+        path='/'
+        element={
+          <>
+            <Navbar />
+            <Hero />
+            <PopularProperties />
+            <FeaturedProperties />
+            <Newsletter />
+            <Footer />
+          </>
+        }
+      />
+      <Route
+        path='/about'
+        element={
+          <>
+            <Navbar />
+            <Footer />
+          </>
+        }
+      />
+      <Route
+        path='/featured'
+        element={
+          <>
+            <Navbar />
+            <FeaturedProperties />
+          </>
+        }
+      />
+      <Route path='/signup' element={<SignUp />} />
+      <Route path='/signin' element={<SignIn />} />
 
-        <Route
-          path='/properties'
-          element={
-            <>
-              <Navbar />
-              <Properties />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path='/propertyDetail/:id'
-          element={
-            <>
-              <Navbar />
-              <PropertyDetails />
-              <Footer />
-            </>
-          }
-        />
-        {/* <Route path='/properties' element ={} />
+      <Route
+        path='/properties'
+        element={
+          <>
+            <Navbar />
+            <Properties />
+            <Footer />
+          </>
+        }
+      />
+      <Route
+        path='/propertyDetail/:id'
+        element={
+          <>
+            <Navbar />
+            <PropertyDetails />
+            <Footer />
+          </>
+        }
+      />
+      {/* <Route path='/properties' element ={} />
         <Route path='/propertyDetail/:id' element ={} /> */}
-      </Routes>
-    </div>
+    </Routes>
   );
 }
 
