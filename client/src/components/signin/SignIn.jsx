@@ -80,19 +80,20 @@ const SignIn = () => {
               className={classes.input}
             />
             <Button
-              // fullWidth
+              fullWidth
+              mt='xl'
               type='submit'
               size='md'
-              radius={15}
-              display='flex'
-              ml={60}
+              radius={5}
+              ta='center'
+              // ml={60}
               variant='filled'
               className={classes.button}
             >
               Sign in
             </Button>
           </form>
-          <Text align='center' mt='md'>
+          <Text align='center' mt='xl'>
             Don't have an account yet? <br />
             <Anchor component={Link} to='/signup'>
               Sign up

@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { TextInput, PasswordInput, Button, FileInput, Container, Paper, Title, Text, Anchor } from '@mantine/core';
+import {
+  TextInput,
+  PasswordInput,
+  Button,
+  FileInput,
+  Container,
+  Paper,
+  Title,
+  Text,
+  Anchor,
+} from '@mantine/core';
 import { AiOutlineFileImage } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import { request } from '../../util/fetchApi';
@@ -50,46 +60,57 @@ const SignUp = () => {
   return (
     <div className={classes.container}>
       <Container size={420} my={40} className={classes.wrapper}>
-        <Title align="center" className={classes.title}>Sign up</Title>
-        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+        <Title align='center' className={classes.title}>
+          Sign up
+        </Title>
+        <Paper withBorder shadow='md' p={30} mt={30} radius='md'>
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="Username"
-              placeholder="Username"
-              name="username"
+              label='Username'
+              placeholder='Username'
+              name='username'
               onChange={handleState}
               required
               className={classes.input}
             />
             <TextInput
-              label="Email"
-              placeholder="Email"
-              name="email"
+              label='Email'
+              placeholder='Email'
+              name='email'
               onChange={handleState}
               required
               className={classes.input}
             />
             <FileInput
-              label="Upload photo"
-              placeholder="Choose file"
+              label='Upload photo'
+              placeholder='Choose file'
               icon={<AiOutlineFileImage />}
               onChange={setPhoto}
               className={classes.fileInput}
             />
             <PasswordInput
-              label="Password"
-              placeholder="Password"
-              name="password"
+              label='Password'
+              placeholder='Password'
+              name='password'
               onChange={handleState}
               required
               className={classes.input}
             />
-            <Button fullWidth mt="xl" type="submit" className={classes.button}>
+            <Button
+              fullWidth
+              mt='xl'
+              radius={5}
+              type='submit'
+              className={classes.button}
+            >
               Register
             </Button>
           </form>
-          <Text align="center" mt="md">
-            Already have an account? <Anchor component={Link} to="/signin">Sign in</Anchor>
+          <Text align='center' mt='md'>
+            Already have an account?{' '}
+            <Anchor component={Link} to='/signin'>
+              Sign in
+            </Anchor>
           </Text>
         </Paper>
       </Container>
@@ -98,7 +119,6 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
 
 // import React from 'react';
 // import classes from './signup.module.css';
