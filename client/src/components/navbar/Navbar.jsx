@@ -22,6 +22,7 @@ import {
   NumberInput,
   Stack,
   FileInput,
+  Select,
 } from '@mantine/core';
 import { AiOutlineFileImage, AiOutlineClose } from 'react-icons/ai';
 import { useDisclosure } from '@mantine/hooks';
@@ -61,6 +62,14 @@ export function Navbar() {
 
   const handleState = (event) => {
     setState((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  };
+
+  const handleSelectState = (value) => {
+    setState((prev) => ({ ...prev, state: value }));
+  };
+
+  const handleSelectType = (value) => {
+    setState((prev) => ({ ...prev, type: value }));
   };
 
   const handleCloseForm = () => {
@@ -111,38 +120,6 @@ export function Navbar() {
       console.error('Property listing failed:', error);
     }
   };
-  // const handleListProperty = async (e) => {
-  //   e.preventDefault();
-
-  //   let filename = null;
-  //   if (photo) {
-  //     const formData = new FormData();
-  //     filename = crypto.randomUUID() + photo.name;
-  //     formData.append('filename', filename);
-  //     formData.append('image', photo);
-
-  //     await request(`/upload/image`, 'POST', {}, formData, true);
-  //   } else {
-  //     return;
-  //   }
-
-  //   try {
-  //     const options = {
-  //       Authorization: `Bearer ${token}`,
-  //       'Content-Type': 'application/json',
-  //     };
-
-  //     const data = await request(`/property`, 'POST', options, {
-  //       ...state,
-  //       img: filename,
-  //     });
-  //     console.log(data);
-  //     setShowForm(false);
-  //     handleCloseForm();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <Box pb={10}>
@@ -297,18 +274,31 @@ export function Navbar() {
             onChange={handleState}
             className={classes.input}
           />
-          <TextInput
+          <Select
             label='State'
-            placeholder='State'
+            placeholder='Select state'
             name='state'
-            onChange={handleState}
+            onChange={handleSelectState}
+            data={[
+              { value: 'NSW', label: 'New South Wales' },
+              { value: 'VIC', label: 'Victoria' },
+              { value: 'WA', label: 'Western Australia' },
+              { value: 'SA', label: 'South Australia' },
+              { value: 'TAS', label: 'Tasmania' },
+            ]}
             className={classes.input}
           />
-          <TextInput
+          <Select
             label='Type'
-            placeholder='Type'
+            placeholder='Select type'
             name='type'
-            onChange={handleState}
+            onChange={handleSelectType}
+            data={[
+              { value: 'house', label: 'House' },
+              { value: 'apartment', label: 'Apartment' },
+              { value: 'duplex', label: 'Duplex' },
+              { value: 'townhouse', label: 'Townhouse' },
+            ]}
             className={classes.input}
           />
           <TextInput
