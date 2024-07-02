@@ -33,7 +33,7 @@
   }
   
   .options {
-    width: 75%;
+    width: 80%;
     background-color: #fff;
     padding: 1.25rem 1.5rem;
     border-radius: 20px;
@@ -58,7 +58,7 @@
     cursor: pointer;
   }
   
-  .searchIcon {
+  .wrapper > .searchIcon {
     padding: 0.6rem;
     width: 40px;
     height: 40px;

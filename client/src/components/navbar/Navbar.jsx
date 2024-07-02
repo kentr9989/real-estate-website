@@ -79,8 +79,14 @@ export function Navbar() {
       formData.append('filename', filename);
       formData.append('image', photo);
 
-      await request(`/upload/image`, 'POST', {}, formData, true);
+      try {
+        await request(`/upload/image`, 'POST', {}, formData, true);
+      } catch (uploadError) {
+        console.error('Image upload failed:', uploadError);
+        return;
+      }
     } else {
+      console.error('No photo selected');
       return;
     }
 
@@ -90,16 +96,53 @@ export function Navbar() {
         'Content-Type': 'application/json',
       };
 
-      const data = await request(`/property`, 'POST', options, {
+      const requestBody = {
         ...state,
         img: filename,
-      });
+      };
+
+      console.log('Request Body:', requestBody); // Log the request body for debugging
+
+      const data = await request(`/property`, 'POST', options, requestBody);
+      console.log('Response Data:', data); // Log the response data for debugging
       setShowForm(false);
       handleCloseForm();
     } catch (error) {
-      console.error(error);
+      console.error('Property listing failed:', error);
     }
   };
+  // const handleListProperty = async (e) => {
+  //   e.preventDefault();
+
+  //   let filename = null;
+  //   if (photo) {
+  //     const formData = new FormData();
+  //     filename = crypto.randomUUID() + photo.name;
+  //     formData.append('filename', filename);
+  //     formData.append('image', photo);
+
+  //     await request(`/upload/image`, 'POST', {}, formData, true);
+  //   } else {
+  //     return;
+  //   }
+
+  //   try {
+  //     const options = {
+  //       Authorization: `Bearer ${token}`,
+  //       'Content-Type': 'application/json',
+  //     };
+
+  //     const data = await request(`/property`, 'POST', options, {
+  //       ...state,
+  //       img: filename,
+  //     });
+  //     console.log(data);
+  //     setShowForm(false);
+  //     handleCloseForm();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <Box pb={10}>

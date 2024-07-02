@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import classes from './hero.module.css';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { Container, Select, Group, Title, Text, ActionIcon } from '@mantine/core';
+import {
+  Container,
+  Select,
+  Group,
+  Title,
+  Text,
+  ActionIcon,
+} from '@mantine/core';
 
 const Hero = () => {
   const [type, setType] = useState('house');
@@ -11,7 +18,9 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    navigate(`/properties?type=${type}&state=${state}&priceRange=${priceRange}`);
+    navigate(
+      `/properties?type=${type}&state=${state}&priceRange=${priceRange}`
+    );
   };
 
   return (
@@ -20,7 +29,7 @@ const Hero = () => {
         <Title order={1}>Properties to call home in Australia</Title>
         <Group className={classes.options}>
           <Select
-            placeholder="Select type"
+            placeholder='Select type'
             data={[
               { value: 'house', label: 'House' },
               { value: 'apartment', label: 'Apartment' },
@@ -31,7 +40,7 @@ const Hero = () => {
             className={classes.select}
           />
           <Select
-            placeholder="Select price range"
+            placeholder='Select price range'
             data={[
               { value: '0', label: '0-300,000' },
               { value: '1', label: '300,000-500,000' },
@@ -43,7 +52,7 @@ const Hero = () => {
             className={classes.select}
           />
           <Select
-            placeholder="Select state"
+            placeholder='Select state'
             data={[
               { value: '0', label: 'NSW' },
               { value: '1', label: 'VIC' },
@@ -54,7 +63,14 @@ const Hero = () => {
             onChange={setState}
             className={classes.select}
           />
-          <ActionIcon variant="filled" className={classes.searchIcon} onClick={handleSearch}>
+          <ActionIcon
+            variant='filled'
+            size='lg'
+            color='blue'
+            radius='xl'
+            className={classes.searchIcon}
+            onClick={handleSearch}
+          >
             <AiOutlineSearch />
           </ActionIcon>
         </Group>

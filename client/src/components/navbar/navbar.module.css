@@ -72,10 +72,6 @@
     color: white;
 }
 
-.dropDownLink {
-    
-}
-
 .subLink {
     width: 100%;
     padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
