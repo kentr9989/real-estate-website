@@ -1,14 +1,18 @@
-import React from 'react';
-import classes from './featuredProperties.module.css';
-import { request } from '../../util/fetchApi';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import img1 from '../../assets/house.jpg';
-import person from '../../assets/person1.jpg';
-import { FaCommentDollar } from 'react-icons/fa';
-import { FaSquareFull } from 'react-icons/fa';
-import { FaBed } from 'react-icons/fa';
+import {
+  Card,
+  Image,
+  Text,
+  Badge,
+  Group,
+  Stack,
+  Box,
+  Container,
+} from '@mantine/core';
+import { FaCommentDollar, FaSquareFull, FaBed } from 'react-icons/fa';
+import { request } from '../../util/fetchApi';
+import classes from './featuredProperties.module.css';
 
 const FeaturedProperties = () => {
   const [featuredProperties, setFeaturedProperties] = useState([]);
@@ -17,8 +21,6 @@ const FeaturedProperties = () => {
     const fetchFeatured = async () => {
       try {
         const data = await request('/property/find/featured', 'GET');
-        console.log(data[0].img);
-        console.log(data[0].currentOwner?.profileImg);
         setFeaturedProperties(data);
       } catch (error) {
         console.error(error.message);
@@ -28,54 +30,77 @@ const FeaturedProperties = () => {
   }, []);
 
   return (
-    <div className={classes.container}>
-      <div className={classes.wrapper}>
-        <div className={classes.titles}>
-          <h5>Properties you may like</h5>
-          <h2>Our featured properties</h2>
-        </div>
-        <div className={classes.featuredProperties}>
+    <Box className={classes.container}>
+      <Container size='xl' className={classes.wrapper}>
+        <Stack align='center' className={classes.titles}>
+          <Text component='h5' className={classes.subtitle}>
+            Properties you may like
+          </Text>
+          <Text component='h2' className={classes.title}>
+            Our featured properties
+          </Text>
+        </Stack>
+        <Group className={classes.featuredProperties}>
           {featuredProperties?.map((property) => (
-            <div key={property._id} className={classes.featuredProperty}>
-              <Link
+            <Card
+              key={property._id}
+              shadow='sm'
+              padding='lg'
+              radius='md'
+              withBorder
+              className={classes.featuredProperty}
+            >
+              <Card.Section
+                component={Link}
                 to={`/propertyDetail/${property._id}`}
                 className={classes.imgContainer}
               >
-                <img
+                <Image
                   src={`https://real-estate-website-mern-m3ux.onrender.com/images/${property?.img}`}
                   alt=''
+                  height={180}
+                  fit='cover'
                 />
-              </Link>
-              <div className={classes.details}>
-                <div className={classes.priceAndOwner}>
-                  <span className={classes.address}>{property?.address}</span>
-                  <img
+              </Card.Section>
+              <Box className={classes.details}>
+                <Group position='apart' className={classes.priceAndOwner}>
+                  <Text className={classes.address}>{property?.address}</Text>
+                  <Image
                     src={`https://real-estate-website-mern-m3ux.onrender.com/images/${property.currentOwner?.profileImg}`}
                     className={classes.owner}
                     alt='seller profile picture'
                   />
-                </div>
-                <div className={classes.moreDetails}>
-                  <span>
+                </Group>
+                <Group className={classes.moreDetails}>
+                  <Badge
+                    size='lg'
+                    variant='gradient'
+                    gradient={{ from: 'blue', to: 'cyan', deg: 181 }}
+                  >
                     {property?.price} AUD
-                    <FaCommentDollar className={classes.icon} />
-                  </span>
-                  <span>
+                  </Badge>
+                  <Badge
+                    size='lg'
+                    variant='gradient'
+                    gradient={{ from: 'blue', to: 'cyan', deg: 181 }}
+                  >
                     {property?.sqmeters}m
-                    <FaSquareFull className={classes.icon} />
-                  </span>
-                  <span>
+                  </Badge>
+                  <Badge
+                    size='lg'
+                    variant='gradient'
+                    gradient={{ from: 'blue', to: 'cyan', deg: 181 }}
+                  >
                     {property?.beds} beds
-                    <FaBed className={classes.icon} />
-                  </span>
-                </div>
-                <div className={classes.desc}>{property?.desc}</div>
-              </div>
-            </div>
+                  </Badge>
+                </Group>
+                <Text className={classes.desc}>{property?.desc}</Text>
+              </Box>
+            </Card>
           ))}
-        </div>
-      </div>
-    </div>
+        </Group>
+      </Container>
+    </Box>
   );
 };
 

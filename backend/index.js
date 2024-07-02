@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
 const authController = require('./controllers/authController');
 const propertyController = require('./controllers/propertyController');
 const uploadController = require('./controllers/uploadController');
@@ -26,7 +27,7 @@ const connectDB = async () => {
 };
 
 connectDB();
-app.use('/images', express.static('public/images'));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 // Routes & middleware
 app.use(cors());

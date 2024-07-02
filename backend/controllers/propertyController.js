@@ -84,7 +84,7 @@ propertyController.get('/find/:id', async (req, res) => {
 });
 
 // create an property
-propertyController.post('/',  async (req, res) => {
+propertyController.post('/', verifyToken, async (req, res) => {
   try {
     const newProperty = await Property.create({
       ...req.body,
