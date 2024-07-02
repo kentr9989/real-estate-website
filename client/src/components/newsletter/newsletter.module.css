@@ -1,37 +1,37 @@
 .container {
     height: 100%;
     width: 100%;
-    margin-top: 5rem;
-}
-
-.wrapper {
+    margin-top: 3rem;
+  }
+  
+  .wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 1180px;
     height: 100%;
     margin: 0 auto;
-}
-
-.titles {
+  }
+  
+  .titles {
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 0.5rem;
-}
-
-.titles > h5 {
+  }
+  
+  .titles > .subtitle {
     color: #777;
     font-size: 18px;
     font-weight: 500;
-}
-
-.titles > h2 {
+  }
+  
+  .titles > .title {
     color: #333;
     font-size: 28px;
-}
-
-.inputContainer{
+  }
+  
+  .inputContainer {
     margin-top: 2rem;
     padding: 0.2rem 0.6rem;
     border: 3px solid #333;
@@ -42,20 +42,23 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-}
-
-.inputContainer:focus-within {
+    transition: border-color 0.3s ease;
+  }
+  
+  .inputContainer:focus-within {
     border-color: #777;
-}
-
-.inputContainer > input {
+  }
+  
+  .inputContainer > .input {
     border: none;
     outline: none;
     padding-left: 1rem;
     font-size: 15px;
-}
-
-.inputContainer > .sendIcon {
+    flex-grow: 1;
+  }
+  
+  .inputContainer > .sendIcon {
     margin-right: 1rem;
     font-size: 25px;
-}
+  }
+  
