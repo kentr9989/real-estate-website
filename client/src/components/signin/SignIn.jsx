@@ -40,25 +40,26 @@ const SignIn = () => {
 
   return (
     <div className={classes.container}>
-      <Container>
+      <Container size={420} my={40} className={classes.wrapper}>
+        <Title order={1} textWrap='wrap' ta='center' mb={20}>
+          Sign in
+        </Title>
         <Paper
           shadow='xl'
           withBorder
           p={30}
           mt={30}
-          w={300}
-          h={500}
+          w={280}
+          h={400}
           radius='md'
           className={classes.wrapper}
         >
-          <Title order={1} textWrap='wrap' ta='center' mb={20}>
-            Sign in
-          </Title>
           <form onSubmit={handleLogin}>
             <TextInput
               label='Email'
               placeholder='Email'
               w={220}
+              mb={20}
               radius='sm'
               size='md'
               required
@@ -70,6 +71,7 @@ const SignIn = () => {
               label='Password'
               placeholder='Password'
               w={220}
+              mb={20}
               radius='sm'
               size='md'
               required
@@ -82,6 +84,8 @@ const SignIn = () => {
               type='submit'
               size='md'
               radius={15}
+              display='flex'
+              ml={60}
               variant='filled'
               className={classes.button}
             >
