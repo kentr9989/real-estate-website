@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <Box component="footer" className={classes.footer} style={{ backgroundColor: theme.colors.dark[7], padding: '2rem 0' }}>
       <Container className={classes.wrapper}>
-        <Group position="apart" className={classes.columns}>
+        <Group justify="space-between" className={classes.columns}>
           <Stack className={classes.col}>
             <Title order={2} className={classes.title}>About the website</Title>
             <Text className={classes.text}>

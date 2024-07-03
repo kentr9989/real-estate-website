@@ -3,9 +3,11 @@
     height: rem(60px);
     padding-left: var(--mantine-spacing-md);
     padding-right: var(--mantine-spacing-md);
-    border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+    border-bottom: rem(0.6rem) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
     min-width: 100vw;
-  }
+    padding-bottom: 0.5rem;
+    border-bottom: 0.5px solid grey;
+}
   
 .link {
     display: flex;

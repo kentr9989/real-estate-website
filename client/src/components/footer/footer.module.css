@@ -10,25 +10,26 @@
     margin: 0 auto;
   }
   
-  .columns {
+.columns {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
   }
   
-  .col {
+  .wrapper > .col {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 0.5rem;
   }
   
-  .title {
+  .col > .title {
     margin-bottom: 1rem;
     color: #fff;
   }
   
-  .text {
-    color: #bbb;
+  .col > .text {
+    color: white;
     font-size: 15px;
   }
   
