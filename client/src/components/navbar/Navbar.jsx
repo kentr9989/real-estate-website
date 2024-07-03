@@ -164,8 +164,14 @@ export function Navbar() {
           >
             {!user ? (
               <>
-                <Link to='/signup'>Sign up</Link>
-                <Link to='/signin'>Sign in</Link>
+                <Button variant='filled' color='blueviolet'>
+                  <Link
+                    to='/signup'
+                    style={{ textDecoration: 'none', color: 'white' }}
+                  >
+                    Sign up
+                  </Link>
+                </Button>
               </>
             ) : (
               <>
