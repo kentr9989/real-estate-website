@@ -16,5 +16,6 @@ To start the front end : npm run start
   + Redux
   + JWT
   + EmailJs
+  + Mantine UI
 
 The website is mainly used for tablets and laptop devices (screen size width above 768px)
