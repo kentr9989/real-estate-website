@@ -77,21 +77,24 @@ const FeaturedProperties = () => {
                     variant='gradient'
                     gradient={{ from: 'blue', to: 'cyan', deg: 181 }}
                   >
-                    {property?.price} AUD
+                    {property?.price} AUD {'  '}
+                    <FaCommentDollar className={classes.icon} />
                   </Badge>
                   <Badge
                     size='lg'
                     variant='gradient'
                     gradient={{ from: 'blue', to: 'cyan', deg: 181 }}
                   >
-                    {property?.sqmeters}m
+                    {property?.sqmeters}m {'  '}
+                    <FaSquareFull className={classes.icon} />
                   </Badge>
                   <Badge
                     size='lg'
                     variant='gradient'
                     gradient={{ from: 'blue', to: 'cyan', deg: 181 }}
                   >
-                    {property?.beds} beds
+                    {property?.beds} beds {'  '}
+                    <FaBed className={classes.icon} />
                   </Badge>
                 </Group>
                 <Text className={classes.desc}>{property?.desc}</Text>
